@@ -194,6 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add AOS attributes to elements for animations
     applyAnimations();
+
+    // Portfolio touch interaction
+    initializePortfolioTouchEvents();
 });
 
 // Function to load portfolio items
@@ -417,4 +420,41 @@ style.textContent = `
     }
 `;
 
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Portfolio touch interaction
+function initializePortfolioTouchEvents() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    let activeItem = null;
+
+    // Remove active class from previous item
+    function deactivateItem() {
+        if (activeItem) {
+            activeItem.classList.remove('touch-active');
+            activeItem = null;
+        }
+    }
+
+    // Handle touch events for each portfolio item
+    portfolioItems.forEach(item => {
+        item.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (activeItem === this) {
+                // If tapping the same item, deactivate it
+                deactivateItem();
+            } else {
+                // Deactivate previous item and activate this one
+                deactivateItem();
+                this.classList.add('touch-active');
+                activeItem = this;
+            }
+        });
+    });
+
+    // Close overlay when touching outside
+    document.addEventListener('touchstart', function(e) {
+        if (!e.target.closest('.portfolio-item')) {
+            deactivateItem();
+        }
+    });
+} 

@@ -131,18 +131,81 @@
     right: 20px;
 }
 
-/* Enhanced Portfolio Item Hover */
+/* Portfolio Styles */
 .portfolio-item {
     position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 30px;
     cursor: pointer;
 }
 
+.portfolio-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
 .portfolio-overlay {
-    background: linear-gradient(
-        to bottom,
-        rgba(212, 165, 165, 0.8),
-        rgba(248, 215, 218, 0.9)
-    );
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.overlay-content h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+/* Desktop hover effects */
+@media (hover: hover) {
+    .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+    }
+    
+    .portfolio-item:hover .overlay-content {
+        transform: translateY(0);
+    }
+    
+    .portfolio-item:hover img {
+        transform: scale(1.1);
+    }
+}
+
+/* Mobile touch effects */
+@media (hover: none) {
+    .portfolio-item.touch-active .portfolio-overlay {
+        opacity: 1;
+    }
+    
+    .portfolio-item.touch-active .overlay-content {
+        transform: translateY(0);
+    }
+    
+    .portfolio-item.touch-active img {
+        transform: scale(1.1);
+    }
 }
 
 /* Service Card Improvements */
